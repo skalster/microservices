@@ -9,7 +9,7 @@
         <relativePath/> <!-- lookup parent from repository -->
     </parent>
     <groupId>se.hiq.hicollege</groupId>
-    <artifactId>microservices</artifactId>
+    <artifactId>weather</artifactId>
     <version>0.0.1-SNAPSHOT</version>
     <name>microservices</name>
     <description>HiCollege microservices homework</description>
