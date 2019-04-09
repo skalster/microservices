@@ -1,22 +1,37 @@
 package se.hiq.hicollege.microservices;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-import org.springframework.beans.factory.annotation.Value;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
-import org.springframework.web.client.RestTemplate;
-
-import java.net.URI;
-import java.util.HashMap;
-import java.util.Map;
 
 @RestController
 @RequestMapping("/hello")
 
 
 public class HelloWeather {
+    private String forecast;
+    private long temperature;
 
+    public HelloWeather(){
+
+    }
+    public HelloWeather(String forecast, long temperature) {
+        this.forecast = forecast;
+        this.temperature = temperature;
+    }
+
+    public String getForecast() {
+        return forecast;
+    }
+
+    public long getTemperature() {
+        return temperature;
+    }
+
+    public void setForecast(String forecast) {
+        this.forecast = forecast;
+    }
+
+    public void setTemperature(int temperature) {
+        this.temperature = temperature;
+    }
 }
