@@ -1,0 +1,82 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: weather-EricVic
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: weather-EricVic
+  template:
+    metadata:
+      labels:
+        app: weather-EricVic
+    spec:
+      containers:
+        - name: weather-EricVic
+          image: hicollege.azurecr.io/weather:0.0.2
+          resources:
+            requests:
+              cpu: 100m
+              memory: 128Mi
+            limits:
+              cpu: 250m
+              memory: 256Mi
+          ports:
+            - containerPort: 8080
+              name: weather-EricVic
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: weather-EricVic
+spec:
+  type: ClusterIP
+  ports:
+    - port: 80
+      targetPort: 8080
+  selector:
+    app: weather-EricVic
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: hello
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: hello
+  template:
+    metadata:
+      labels:
+        app: hello
+    spec:
+      containers:
+        - name: hello
+          image: hicollege.azurecr.io/hello:0.0.1-SNAPSHOT
+          resources:
+            requests:
+              cpu: 100m
+              memory: 128Mi
+            limits:
+              cpu: 250m
+              memory: 256Mi
+          ports:
+            - containerPort: 8080
+              name: hello
+          env:
+            - name: weatherUrl
+              value: http://weather/weather
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: hello
+spec:
+  type: LoadBalancer
+  ports:
+    - port: 80
+      targetPort: 8080
+  selector:
+    app: hello
